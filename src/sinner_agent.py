@@ -24,7 +24,7 @@ class SinnerAgent:
             "temperature": 0.7,
         }
         resp = requests.post(f"{self.base_url}/chat/completions",
-                             headers=self.headers, json=payload)
+                             headers=self.headers, json=payload, timeout=30)
         resp.raise_for_status()
         return resp.json()["choices"][0]["message"]["content"].strip()
 
