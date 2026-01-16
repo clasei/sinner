@@ -9,7 +9,7 @@
 ```
 
 sinner is a local-first CLI agent that helps developers turn messy intent
-into clean, professional output — private by design
+into clean, professional output (private by design)
 
 local CLI · private · scalable · shippable
 
