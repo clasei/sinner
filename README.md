@@ -1,2 +1,16 @@
-# sinner
-Sinner — for developers, play smart &amp; commit hard: generate names and commits with quiet confidence, inspired by the calm precision of Jannik Sinner
+
+```text
+███████╗██╗███╗   ██╗███╗   ██╗███████╗██████╗ 
+██╔════╝██║████╗  ██║████╗  ██║██╔════╝██╔══██╗
+███████╗██║██╔██╗ ██║██╔██╗ ██║█████╗  ██████╔╝
+╚════██║██║██║╚██╗██║██║╚██╗██║██╔══╝  ██╔══██╗
+███████║██║██║ ╚████║██║ ╚████║███████╗██║  ██║
+╚══════╝╚═╝╚═╝  ╚═══╝╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝
+```
+
+sinner is a local-first CLI agent that helps developers turn messy intent into
+clean, professional output — private by design.
+
+local CLI · private · scalable · shippable
+
+build the right thing · build it right · run it right
