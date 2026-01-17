@@ -5,6 +5,7 @@ CLI entrypoint for sinner.
 import typer
 from typing import Optional
 from sinner.controller import SinnerController
+from sinner.git_reader import GitReader
 
 app = typer.Typer(help="sinner - local-first CLI agent for developers")
 controller = SinnerController()
@@ -52,18 +53,37 @@ def commit(changes: str):
 
 @app.command()
 def comment(
-    context: str,
+    context: Optional[str] = typer.Argument(None, help="Manual context (or leave empty to read from git)"),
+    count: int = typer.Option(5, "--count", "-n", help="Number of commits to read"),
+    since: Optional[str] = typer.Option(None, "--since", help="Read commits since date/time"),
     squash: bool = typer.Option(False, "--squash", help="Generate squash commit message"),
     merge: bool = typer.Option(False, "--merge", help="Generate merge request description"),
 ):
     """Generate a PR comment or commit message.
     
+    If no context is provided, reads recent commits from git.
+    
     Examples:
-      sinner comment "feat: add auth\nfix: bug"
-      sinner comment "feat: add auth\nfix: bug" --squash
+      sinner comment
+      sinner comment --count 10
+      sinner comment --since "2 weeks ago"
+      sinner comment --squash
       sinner comment "feat: add auth\nfix: bug" --merge
     """
     try:
+        # If no manual context, read from git
+        if not context:
+            if not GitReader.is_git_repo():
+                typer.echo("Error: Not in a git repository. Provide manual context or run in a git repo.", err=True)
+                raise typer.Exit(1)
+            
+            commits = GitReader.get_recent_commits(count=count, since=since)
+            if not commits:
+                typer.echo("Error: No commits found.", err=True)
+                raise typer.Exit(1)
+            
+            context = "\n".join(commits)
+        
         result = controller.run("comment", context, squash=squash, merge=merge)
         typer.echo(result)
     except Exception as e:
