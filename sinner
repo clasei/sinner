@@ -1,0 +1,5 @@
+#!/bin/bash
+# Convenience script to run sinner from anywhere
+
+export PYTHONPATH="$(cd "$(dirname "${BASH_SOURCE[0]}")/src" && pwd):$PYTHONPATH"
+python -m sinner "$@"

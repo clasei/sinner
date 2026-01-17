@@ -33,7 +33,7 @@ setup(
     install_requires=requirements,
     entry_points={
         "console_scripts": [
-            "sinner=src.cli:app",
+            "sinner=sinner.__main__:app",
         ],
     },
 )

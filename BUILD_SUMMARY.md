@@ -146,20 +146,20 @@ sinner/
 python test_sanity.py
 
 # Show version
-python -m src.cli --version
+python -m sinner --version
 
 # Get help
-python -m src.cli --help
-python -m src.cli comment --help
+python -m sinner --help
+python -m sinner comment --help
 
 # Check config
-python -m src.cli config
+python -m sinner config
 
 # Real usage (needs LM Studio)
-python -m src.cli name "function that validates API tokens"
-python -m src.cli commit "restructured project for v0.1"
-python -m src.cli comment --squash --count 5
-python -m src.cli explain "what are Python context managers?"
+python -m sinner name "function that validates API tokens"
+python -m sinner commit "restructured project for v0.1"
+python -m sinner comment --squash --count 5
+python -m sinner explain "what are Python context managers?"
 ```
 
 ---

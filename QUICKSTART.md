@@ -26,8 +26,8 @@
 
 4. **Test sinner**
    ```bash
-   python -m src.cli --version
-   python -m src.cli config
+   python -m sinner --version
+   python -m sinner config
    ```
 
 ## Usage Examples
@@ -35,35 +35,35 @@
 ### Generate a name
 
 ```bash
-python -m src.cli name "a class that manages user authentication sessions"
+python -m sinner name "a class that manages user authentication sessions"
 ```
 
 ### Create a commit message
 
 ```bash
-python -m src.cli commit "refactored authentication module to use JWT tokens"
+python -m sinner commit "refactored authentication module to use JWT tokens"
 ```
 
 ### Generate merge comment
 
 ```bash
 # For squash merge (last 5 commits)
-python -m src.cli comment --squash
+python -m sinner comment --squash
 
 # For pull request (last 10 commits)
-python -m src.cli comment --merge --count 10
+python -m sinner comment --merge --count 10
 ```
 
 ### Explain something
 
 ```bash
-python -m src.cli explain "what are Python decorators?"
+python -m sinner explain "what are Python decorators?"
 ```
 
 ### Check configuration
 
 ```bash
-python -m src.cli config
+python -m sinner config
 ```
 
 ## Troubleshooting

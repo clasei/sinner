@@ -113,20 +113,20 @@
 
 ```bash
 # 1. Test all commands
-python -m src.cli --version
-python -m src.cli --help
-python -m src.cli config
-python -m src.cli name --help
-python -m src.cli commit --help
-python -m src.cli comment --help
-python -m src.cli explain --help
+python -m sinner --version
+python -m sinner --help
+python -m sinner config
+python -m sinner name --help
+python -m sinner commit --help
+python -m sinner comment --help
+python -m sinner explain --help
 
 # 2. Run sanity tests
 python test_sanity.py
 
 # 3. Test with real repo (requires LM Studio)
-python -m src.cli comment --squash
-python -m src.cli comment --merge --count 10
+python -m sinner comment --squash
+python -m sinner comment --merge --count 10
 ```
 
 ## 🚢 Ready to Ship

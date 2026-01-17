@@ -16,35 +16,35 @@ def test_imports():
     print("Testing imports...")
     
     try:
-        from src import __version__
+        from sinner import __version__
         print(f"✓ Package version: {__version__}")
     except ImportError as e:
         print(f"✗ Failed to import package: {e}")
         return False
     
     try:
-        from src.core import Controller, LLMClient
+        from sinner.core import Controller, LLMClient
         print("✓ Core modules imported")
     except ImportError as e:
         print(f"✗ Failed to import core: {e}")
         return False
     
     try:
-        from src.core import prompts
+        from sinner.core import prompts
         print("✓ Prompts module imported")
     except ImportError as e:
         print(f"✗ Failed to import prompts: {e}")
         return False
     
     try:
-        from src.utils import GitIntegration, show_banner
+        from sinner.utils import GitIntegration, show_banner, OutputFormatter
         print("✓ Utils modules imported")
     except ImportError as e:
         print(f"✗ Failed to import utils: {e}")
         return False
     
     try:
-        from src import cli
+        from sinner import __main__
         print("✓ CLI module imported")
     except ImportError as e:
         print(f"✗ Failed to import CLI: {e}")
@@ -57,7 +57,7 @@ def test_controller_routing():
     """Test controller command routing without LLM."""
     print("\nTesting controller routing...")
     
-    from src.core import Controller
+    from sinner.core import Controller
     
     controller = Controller()
     
@@ -80,7 +80,7 @@ def test_prompts():
     """Test prompt generation."""
     print("\nTesting prompts...")
     
-    from src.core import prompts
+    from sinner.core import prompts
     
     # Test each prompt function
     try:
@@ -119,7 +119,7 @@ def test_git_integration():
     """Test git integration (if in a repo)."""
     print("\nTesting git integration...")
     
-    from src.utils import GitIntegration
+    from sinner.utils import GitIntegration
     
     # Test is_git_repo
     is_repo = GitIntegration.is_git_repo()
@@ -142,7 +142,7 @@ def test_banner():
     """Test banner display."""
     print("\nTesting banner...")
     
-    from src.utils import show_banner
+    from sinner.utils import show_banner
     
     try:
         show_banner()

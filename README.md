@@ -60,7 +60,7 @@ sinner takes your messy thoughts and turns them into clean, professional output:
 
 4. **Run sinner**
    ```bash
-   python -m src.cli --help
+   python -m sinner --help
    ```
 
 ---
@@ -70,44 +70,44 @@ sinner takes your messy thoughts and turns them into clean, professional output:
 ### Generate names
 
 ```bash
-python -m src.cli name "a function that validates email addresses"
+python -m sinner name "a function that validates email addresses"
 ```
 
 ### Create commit messages
 
 ```bash
-python -m src.cli commit "added user authentication with JWT tokens"
+python -m sinner commit "added user authentication with JWT tokens"
 ```
 
 ### Generate merge/squash comments
 
 ```bash
 # Squash merge comment from last 5 commits
-python -m src.cli comment --squash
+python -m sinner comment --squash
 
 # Pull request description from last 10 commits
-python -m src.cli comment --merge --count 10
+python -m sinner comment --merge --count 10
 
 # Comments from commits since a date
-python -m src.cli comment --since "2 weeks ago"
+python -m sinner comment --since "2 weeks ago"
 ```
 
 ### Explain code or concepts
 
 ```bash
-python -m src.cli explain "what is a closure in Python?"
+python -m sinner explain "what is a closure in Python?"
 ```
 
 ### Check configuration
 
 ```bash
-python -m src.cli config
+python -m sinner config
 ```
 
 ### Show version
 
 ```bash
-python -m src.cli --version
+python -m sinner --version
 ```
 
 ---
@@ -173,13 +173,13 @@ sinner/
 ### Run locally
 
 ```bash
-python -m src.cli <command>
+python -m sinner <command>
 ```
 
 ### Test with your local LLM
 
 1. Start your LM Studio server
-2. Load a model (e.g., google/gemma-3-4b)
+2. Load a model (e.g., llama-3.2-3b-instruct)
 3. Run any sinner command
 
 ---
