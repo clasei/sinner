@@ -56,8 +56,14 @@ sinner takes your messy thoughts and turns them into clean, professional output:
    ```env
    LMSTUDIO_BASE_URL=http://127.0.0.1:1234/v1
    LMSTUDIO_API_KEY=lm-studio
-   MODEL_ID=google/gemma-3-4b
+   MODEL_ID=llama-3.2-3b-instruct
    ```
+
+   **Using a different model?**
+   - Load your model in LM Studio's Chat tab
+   - Copy the exact model name shown at the top
+   - Update `MODEL_ID` in `.env` to match
+   - Or use: `python update_model.py "your-model-name"`
 
 4. **Run sinner**
    ```bash
@@ -179,9 +185,13 @@ python -m sinner <command>
 
 ### Test with your local LLM
 
-1. Start your LM Studio server
-2. Load a model (e.g., llama-3.2-3b-instruct)
-3. Run any sinner command
+1. **Start LM Studio** and load a model in the Chat tab
+2. **Check the model name** shown at the top of LM Studio
+3. **Update `.env`** if needed (MODEL_ID must match exactly)
+4. **Test connection:** `python test_connection.py`
+5. **Run sinner:** `python -m sinner name "test"`
+
+**Switching models?** Just load a new model in LM Studio and update MODEL_ID in `.env`
 
 ---
 
