@@ -9,7 +9,7 @@ from sinner.utils.git_integration import GitIntegration
 
 app = typer.Typer(
     name="sinner",
-    help="Local-first CLI agent that turns messy intent into clean output",
+    help="local-first CLI agent that turns messy intent into clean output",
     add_completion=False,
 )
 

@@ -10,6 +10,7 @@
    python3 -m venv venv
    source venv/bin/activate  # On Windows: venv\Scripts\activate
    pip install -r requirements.txt
+   pip install -e .  # Install sinner in editable mode
    ```
 
 2. **Configure your LLM**

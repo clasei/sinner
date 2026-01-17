@@ -42,10 +42,11 @@ sinner takes your messy thoughts and turns them into clean, professional output:
    cd sinner
    ```
 
-2. **Install dependencies**
+2. **Install dependencies and sinner**
 
    ```bash
    pip install -r requirements.txt
+   pip install -e .
    ```
 
 3. **Configure your LLM endpoint**
