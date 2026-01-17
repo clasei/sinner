@@ -35,86 +35,84 @@ sinner takes your messy thoughts and turns them into clean, professional output:
 
 ### Setup
 
-1. **Clone the repository**
+1. **Clone and install sinner**
 
    ```bash
    git clone https://github.com/clasei/sinner.git
    cd sinner
-   ```
-
-2. **Install dependencies and sinner**
-
-   ```bash
-   pip install -r requirements.txt
    pip install -e .
    ```
 
-3. **Configure your LLM endpoint**
+2. **Initialize configuration**
 
-   Create a `.env` file in the project root:
+   ```bash
+   sinner config --init
+   ```
 
-   ```env
-   LMSTUDIO_BASE_URL=http://127.0.0.1:1234/v1
-   LMSTUDIO_API_KEY=lm-studio
-   MODEL_ID=llama-3.2-3b-instruct
+   This creates `~/.config/sinner/.env` with default settings.
+
+3. **Start your local LLM**
+
+   - Open [LM Studio](https://lmstudio.ai/)
+   - Load a model (recommended: `llama-3.2-3b-instruct`)
+   - Start the local server (default: `http://127.0.0.1:1234`)
+
+4. **You're ready!**
+
+   ```bash
+   sinner --help
    ```
 
    **Using a different model?**
-   - Load your model in LM Studio's Chat tab
-   - Copy the exact model name shown at the top
-   - Update `MODEL_ID` in `.env` to match
-   - Or use: `python update_model.py "your-model-name"`
-
-4. **Run sinner**
-   ```bash
-   python -m sinner --help
-   ```
+   Edit `~/.config/sinner/.env` and update `MODEL_ID` to match the model name shown in LM Studio.
 
 ---
 
 ## Usage
 
+sinner works from any directory once installed. No need to be in the sinner repo!
+
 ### Generate names
 
 ```bash
-python -m sinner name "a function that validates email addresses"
+sinner name "a function that validates email addresses"
 ```
 
 ### Create commit messages
 
 ```bash
-python -m sinner commit "added user authentication with JWT tokens"
+sinner commit "added user authentication with JWT tokens"
 ```
 
 ### Generate merge/squash comments
 
 ```bash
 # Squash merge comment from last 5 commits
-python -m sinner comment --squash
+sinner comment --squash
 
 # Pull request description from last 10 commits
-python -m sinner comment --merge --count 10
+sinner comment --merge --count 10
 
 # Comments from commits since a date
-python -m sinner comment --since "2 weeks ago"
+sinner comment --since "2 weeks ago"
 ```
 
 ### Explain code or concepts
 
 ```bash
-python -m sinner explain "what is a closure in Python?"
+sinner explain "what is a closure in Python?"
 ```
 
 ### Check configuration
 
 ```bash
-python -m sinner config
+sinner config
 ```
 
 ### Show version
 
 ```bash
-python -m sinner --version
+sinner --version
 ```
 
 ---

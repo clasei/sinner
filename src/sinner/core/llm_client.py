@@ -1,8 +1,16 @@
 import os
+from pathlib import Path
 import requests
 from dotenv import load_dotenv
 
-load_dotenv()
+# Load from global config directory
+config_dir = Path.home() / ".config" / "sinner"
+env_file = config_dir / ".env"
+if env_file.exists():
+    load_dotenv(env_file)
+else:
+    # Fallback to local .env for development/testing
+    load_dotenv()
 
 
 class LLMClient:
