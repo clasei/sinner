@@ -121,16 +121,54 @@ def explain(
 
 
 @app.command()
-def config():
+def config(
+    init: bool = typer.Option(False, "--init", help="Initialize global config file")
+):
     """
-    Show current configuration (LLM endpoint, model, etc.).
+    Show current configuration or initialize global config.
+    
+    Use --init to create ~/.config/sinner/.env
     """
     import os
+    from pathlib import Path
     from dotenv import load_dotenv
     
-    load_dotenv()
+    config_dir = Path.home() / ".config" / "sinner"
+    env_file = config_dir / ".env"
     
-    typer.echo("Current Configuration:")
+    if init:
+        # Create config directory if it doesn't exist
+        config_dir.mkdir(parents=True, exist_ok=True)
+        
+        # Create .env file with defaults if it doesn't exist
+        if env_file.exists():
+            typer.echo(f"⚠️  Config already exists at {env_file}")
+            overwrite = typer.confirm("Overwrite it?")
+            if not overwrite:
+                typer.echo("Cancelled.")
+                raise typer.Exit()
+        
+        # Create default .env content
+        default_config = """# sinner configuration
+LMSTUDIO_BASE_URL=http://127.0.0.1:1234/v1
+LMSTUDIO_API_KEY=lm-studio
+MODEL_ID=llama-3.2-3b-instruct
+"""
+        env_file.write_text(default_config)
+        typer.echo(f"✓ Created config at {env_file}")
+        typer.echo("\nEdit this file to customize your LLM settings.")
+        typer.echo("Then start LM Studio and load your model.")
+        raise typer.Exit()
+    
+    # Show current config
+    if env_file.exists():
+        load_dotenv(env_file)
+        typer.echo(f"Configuration file: {env_file}")
+    else:
+        load_dotenv()
+        typer.echo("Configuration: Using local .env (run 'sinner config --init' to create global config)")
+    
+    typer.echo("\nCurrent Settings:")
     typer.echo(f"  Base URL: {os.getenv('LMSTUDIO_BASE_URL', 'http://127.0.0.1:1234/v1')}")
     typer.echo(f"  Model: {os.getenv('MODEL_ID', 'llama-3.2-3b-instruct')}")
     typer.echo(f"  API Key: {'set' if os.getenv('LMSTUDIO_API_KEY') else 'not set (using default)'}")
