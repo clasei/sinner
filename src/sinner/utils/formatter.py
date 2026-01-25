@@ -31,8 +31,10 @@ class OutputFormatter:
         )
         
         # Remove excessive markdown (but keep basic formatting)
-        # Only remove bold/italic markers, keep structure
+        # Remove all bold/italic markers
         cleaned = re.sub(r'\*\*\*', '', cleaned)  # Remove triple asterisks
+        cleaned = re.sub(r'\*\*', '', cleaned)    # Remove double asterisks (bold)
+        cleaned = re.sub(r'__', '', cleaned)       # Remove underscores (bold)
         
         # Strip excessive whitespace but preserve paragraph breaks
         lines = [line.strip() for line in cleaned.split('\n')]
@@ -65,18 +67,23 @@ class OutputFormatter:
         # Clean first
         cleaned = OutputFormatter.clean_output(raw_output)
         
-        # Check if LLM already returned bullets
-        if cleaned.startswith('-') or '\n-' in cleaned:
-            # Already in bullet format, just clean up
+        # Check if LLM already returned bullets (with - or *)
+        if cleaned.startswith(('-', '*')) or '\n-' in cleaned or '\n*' in cleaned:
+            # Already in bullet format, just clean up and normalize
             lines = cleaned.split('\n')
             bullets = []
+            title = None
             for line in lines:
                 line = line.strip()
-                if line.startswith('-'):
-                    # Remove bullet marker and trailing period
+                # Check for both - and * bullet markers
+                if line.startswith(('-', '*')):
+                    # Remove bullet marker (- or *) and trailing period
                     text = line[1:].strip().rstrip('.')
                     if text and len(text.split()) > 3:
                         bullets.append(f"- {text}")
+                elif line and not title:
+                    # First non-bullet line is the title
+                    title = line.rstrip('.')
         else:
             # Convert prose to bullets
             # Remove any leading dash, number, or bullet
@@ -110,17 +117,18 @@ class OutputFormatter:
                 if text and len(text.split()) > 3 and not any(skip in text.lower() for skip in ['includes several', 'this pr', 'this pull request']):
                     bullets.append(f"- {text}")
         
-        # Generate simple title from first bullet
+        # Generate simple title from first bullet if we don't have one
         if bullets:
-            first = bullets[0].replace('- ', '').lower()
-            if 'updated' in first or 'changed' in first or 'added' in first:
-                title = "Updated documentation and configuration"
-            elif 'fixed' in first or 'resolved' in first:
-                title = "Fixed issues and improved functionality"
-            elif 'merged' in first:
-                title = "Merged feature branches"
-            else:
-                title = "Updated project configuration"
+            if not title:
+                first = bullets[0].replace('- ', '').lower()
+                if 'updated' in first or 'changed' in first or 'added' in first:
+                    title = "Updated documentation and configuration"
+                elif 'fixed' in first or 'resolved' in first:
+                    title = "Fixed issues and improved functionality"
+                elif 'merged' in first:
+                    title = "Merged feature branches"
+                else:
+                    title = "Updated project configuration"
             
             return f"{title}\n\n" + "\n".join(bullets)
         
