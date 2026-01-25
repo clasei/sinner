@@ -35,17 +35,34 @@ sinner takes your messy thoughts and turns them into clean, professional output:
 
 ### Setup
 
-1. **Clone and install sinner**
+1. **Clone the repository**
 
    ```bash
    git clone https://github.com/clasei/sinner.git
    cd sinner
-   pip3 install -e .
    ```
-   
-   *If `pip3` not found, try: `python3 -m pip install -e .`*
 
-2. **Initialize configuration**
+2. **Install sinner** (choose one method)
+
+   **Option A: Virtual Environment** (recommended for most users)
+
+   ```bash
+   python3 -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   pip install -e .
+   ```
+
+   **Option B: pipx** (for global CLI tool access)
+
+   ```bash
+   brew install pipx  # macOS/Linux (see pipx.pypa.io for other platforms)
+   pipx install -e .
+   pipx ensurepath    # Adds ~/.local/bin to PATH
+   ```
+
+   _Note: Direct `pip3 install` may fail on macOS due to PEP 668 externally-managed environments._
+
+3. **Initialize configuration**
 
    ```bash
    sinner config --init
@@ -53,12 +70,12 @@ sinner takes your messy thoughts and turns them into clean, professional output:
 
    This creates `~/.config/sinner/.env` with default settings.
 
-3. **Start your local LLM**
+4. **Start your local LLM**
    - Open [LM Studio](https://lmstudio.ai/)
    - Load a model (recommended: `llama-3.2-3b-instruct`)
    - Start the local server (default: `http://127.0.0.1:1234`)
 
-4. **You're ready!**
+5. **You're ready!**
 
    ```bash
    sinner --help

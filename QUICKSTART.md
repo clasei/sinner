@@ -2,15 +2,30 @@
 
 ## Installation (3 steps, ~2 minutes)
 
-1. **Install sinner**
+1. **Clone and install**
 
    ```bash
    git clone https://github.com/clasei/sinner.git
    cd sinner
-   pip3 install -e .
    ```
-   
-   *If `pip3` not found: `python3 -m pip install -e .`*
+
+   Then choose one:
+
+   **Virtual environment** (recommended):
+
+   ```bash
+   python3 -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   pip install -e .
+   ```
+
+   **pipx** (for global access):
+
+   ```bash
+   brew install pipx  # macOS/Linux
+   pipx install -e .
+   pipx ensurepath
+   ```
 
 2. **Initialize config**
 
@@ -43,10 +58,10 @@ sinner commit "refactored authentication module to use JWT tokens"
 
 ```bash
 # For squash merge (last 5 commits)
-python -m sinner comment --squash
+sinner comment --squash
 
 # For pull request (last 10 commits)
-python -m sinner comment --merge --count 10
+sinner comment --merge --count 10
 ```
 
 ### Explain something
@@ -71,9 +86,18 @@ sinner config
 
 ### Command not found: sinner
 
+**If using venv:**
+
 ```bash
 cd /path/to/sinner
-pip install -e .
+source venv/bin/activate  # Activate the virtual environment
+```
+
+**If using pipx:**
+
+```bash
+pipx ensurepath  # Add ~/.local/bin to PATH
+# Then restart your terminal or: source ~/.zshrc
 ```
 
 ### Change model
