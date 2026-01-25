@@ -107,9 +107,14 @@ sinner name "a function that validates email addresses"
 
 ### Create commit messages
 
+Provide a description of your changes and get a clean, single-line conventional commit message:
+
 ```bash
 sinner commit "added user authentication with JWT tokens"
+# Output: feat(auth) -> add user authentication with JWT tokens
 ```
+
+**Note:** Output is always a single line for fast, atomic commits. Want multi-line commits with bullet points? You can customize the prompt (see [Customization](#customization) section).
 
 ### Generate PR descriptions
 
@@ -330,7 +335,7 @@ python -m sinner <command>
 
 ## Contributing
 
-This is v0.1 - a focused, working baseline. Contributions welcome, but let's keep scope tight:
+This is a focused, working baseline. Contributions welcome, but let's keep scope tight:
 
 - Bug fixes: always welcome
 - New features: open an issue first to discuss
@@ -362,4 +367,8 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 ---
 
-**sinner v0.1** - built with quiet confidence 🎾
+**sinner v0.2** - built to ship 🎾
+
+```
+════ sinner · zero fluff, pure function ════
+```
