@@ -52,7 +52,6 @@ sinner takes your messy thoughts and turns them into clean, professional output:
    This creates `~/.config/sinner/.env` with default settings.
 
 3. **Start your local LLM**
-
    - Open [LM Studio](https://lmstudio.ai/)
    - Load a model (recommended: `llama-3.2-3b-instruct`)
    - Start the local server (default: `http://127.0.0.1:1234`)
@@ -87,8 +86,11 @@ sinner commit "added user authentication with JWT tokens"
 ### Generate merge/squash comments
 
 ```bash
-# Squash merge comment from last 5 commits
+# Squash merge comment from last 5 commits (default)
 sinner comment --squash
+
+# Or specify the count explicitly
+sinner comment --squash --count 5
 
 # Pull request description from last 10 commits
 sinner comment --merge --count 10
@@ -170,6 +172,37 @@ sinner/
 - **Isolated prompts:** One prompt per action. Small and focused.
 - **Local-first:** Everything runs on your machine with your local LLM.
 - **Clean output:** No emojis. No markdown noise. Paste-ready professional text.
+
+---
+
+## Customization
+
+### Custom Prompts
+
+Want to change the output format or style? Edit the prompts directly:
+
+**Location:** `src/sinner/core/prompts.py`
+
+Each command has its own prompt function:
+
+- `prompt_name()` - Naming conventions
+- `prompt_commit()` - Commit message format (currently: `type(scope) -> description`)
+- `prompt_comment_squash()` - Squash merge comments
+- `prompt_comment_merge()` - Pull request descriptions
+- `prompt_explain()` - Code explanations
+
+**Example:** Change commit format from `type(scope) -> description` to `type: description`:
+
+```python
+# In src/sinner/core/prompts.py
+def prompt_commit(changes: str) -> str:
+    return f"""...
+    Create a commit message in this EXACT format:
+    type: description
+    ..."""
+```
+
+After editing, reinstall: `pip install -e .`
 
 ---
 
