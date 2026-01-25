@@ -108,9 +108,15 @@ Style:
 - Use passive voice (things "were added", "got updated", not "we added")
 - Conversational and natural tone
 - Technical but not formal
-- Include details about what changed and why
-- 2-3 sentences max
+- Include details about what changed
+- 2-3 paragraphs for large sets of commits
 - No bullet points, just flowing prose
+
+CRITICAL RULES:
+- Only mention what's explicitly in the commit messages above
+- Do NOT invent features, models, or details not present in the commits
+- If unsure about specifics, keep it general ("some improvements were made" vs specific feature names)
+- Stick to the facts from the commits, nothing more
 
 Example: "Hey! So the auth system got a nice refactoring - JWT handling was moved into a separate service and refresh token support was added. Error handling also got cleaned up to make expired sessions more graceful."
 
