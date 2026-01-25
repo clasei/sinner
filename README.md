@@ -8,6 +8,8 @@
 local-first CLI agent · private by design
 ```
 
+**Site:** [clasei.github.io/get-sinner](https://clasei.github.io/get-sinner)
+
 # sinner
 
 **Turn messy intent into clean, professional output**
