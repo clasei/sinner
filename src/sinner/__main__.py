@@ -23,6 +23,14 @@ BANNER = r"""
 local-first CLI agent · private by design
 """
 
+SIGNATURE = "════ sinner · zero fluff, pure function ════"
+
+
+def echo_result(result: str):
+    """Echo result with signature line."""
+    typer.echo(result)
+    typer.echo(f"\n{SIGNATURE}")
+
 
 @app.command()
 def name(
@@ -37,7 +45,7 @@ def name(
     try:
         controller = Controller()
         result = controller.run("name", context)
-        typer.echo(result)
+        echo_result(result)
     except Exception as e:
         typer.echo(f"Error: {e}", err=True)
         raise typer.Exit(1)
@@ -56,27 +64,24 @@ def commit(
     try:
         controller = Controller()
         result = controller.run("commit", changes)
-        typer.echo(result)
+        echo_result(result)
     except Exception as e:
         typer.echo(f"Error: {e}", err=True)
         raise typer.Exit(1)
 
 
 @app.command()
-def comment(
+def pr(
     count: int = typer.Option(5, "--count", "-c", help="Number of recent commits to analyze"),
     since: Optional[str] = typer.Option(None, "--since", help="Get commits since this date"),
-    squash: bool = typer.Option(False, "--squash", help="Generate single commit message for squash merge"),
-    pr: bool = typer.Option(False, "--pr", help="Generate PR description (title + bullets)"),
 ):
     """
-    Generate commit messages or PR descriptions from git history.
+    Generate a formal PR description from git history (title + bullets).
     
     Examples:
-        sinner comment --pr           # PR description (default)
-        sinner comment --squash        # Single commit message
-        sinner comment --pr --count 10
-        sinner comment --since "2 weeks ago"
+        sinner pr
+        sinner pr --count 10
+        sinner pr --since "2 weeks ago"
     """
     try:
         if not GitIntegration.is_git_repo():
@@ -91,8 +96,82 @@ def comment(
         
         commits_text = "\n".join(commits)
         controller = Controller()
-        result = controller.run("comment", commits_text, squash=squash, pr=pr)
-        typer.echo(result)
+        result = controller.run("pr", commits_text)
+        echo_result(result)
+        
+    except RuntimeError as e:
+        typer.echo(f"Git error: {e}", err=True)
+        raise typer.Exit(1)
+    except Exception as e:
+        typer.echo(f"Error: {e}", err=True)
+        raise typer.Exit(1)
+
+
+@app.command()
+def squash(
+    count: int = typer.Option(5, "--count", "-c", help="Number of recent commits to analyze"),
+    since: Optional[str] = typer.Option(None, "--since", help="Get commits since this date"),
+):
+    """
+    Generate a single commit message for squash merges.
+    
+    Examples:
+        sinner squash
+        sinner squash --count 8
+        sinner squash --since "1 week ago"
+    """
+    try:
+        if not GitIntegration.is_git_repo():
+            typer.echo("Error: Not in a git repository", err=True)
+            raise typer.Exit(1)
+        
+        commits = GitIntegration.get_recent_commits(count=count, since=since)
+        
+        if not commits:
+            typer.echo("No commits found", err=True)
+            raise typer.Exit(1)
+        
+        commits_text = "\n".join(commits)
+        controller = Controller()
+        result = controller.run("squash", commits_text)
+        echo_result(result)
+        
+    except RuntimeError as e:
+        typer.echo(f"Git error: {e}", err=True)
+        raise typer.Exit(1)
+    except Exception as e:
+        typer.echo(f"Error: {e}", err=True)
+        raise typer.Exit(1)
+
+
+@app.command()
+def comment(
+    count: int = typer.Option(3, "--count", "-c", help="Number of recent commits to analyze"),
+    since: Optional[str] = typer.Option(None, "--since", help="Get commits since this date"),
+):
+    """
+    Generate an informal, detailed summary of recent changes.
+    
+    Examples:
+        sinner comment
+        sinner comment --count 5
+        sinner comment --since "yesterday"
+    """
+    try:
+        if not GitIntegration.is_git_repo():
+            typer.echo("Error: Not in a git repository", err=True)
+            raise typer.Exit(1)
+        
+        commits = GitIntegration.get_recent_commits(count=count, since=since)
+        
+        if not commits:
+            typer.echo("No commits found", err=True)
+            raise typer.Exit(1)
+        
+        commits_text = "\n".join(commits)
+        controller = Controller()
+        result = controller.run("comment", commits_text)
+        echo_result(result)
         
     except RuntimeError as e:
         typer.echo(f"Git error: {e}", err=True)
@@ -115,7 +194,7 @@ def explain(
     try:
         controller = Controller()
         result = controller.run("explain", content)
-        typer.echo(result)
+        echo_result(result)
     except Exception as e:
         typer.echo(f"Error: {e}", err=True)
         raise typer.Exit(1)

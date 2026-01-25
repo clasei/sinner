@@ -18,7 +18,9 @@ sinner takes your messy thoughts and turns them into clean, professional output:
 
 - Generate meaningful names for variables, functions, and classes
 - Create conventional commit messages from change descriptions
-- Synthesize squash/merge comments from commit history
+- Generate formal PR descriptions from git history
+- Create squash commit messages from multiple commits
+- Review recent work with informal summaries
 - Explain code and technical concepts clearly
 
 **Private by design.** Everything runs locally on your machine. No cloud. No accounts. No telemetry.
@@ -109,20 +111,43 @@ sinner name "a function that validates email addresses"
 sinner commit "added user authentication with JWT tokens"
 ```
 
-### Generate merge/squash comments
+### Generate PR descriptions
 
 ```bash
-# PR description with title and bullets (default)
-sinner comment
+# Formal PR description with title and bullets (last 5 commits)
+sinner pr
 
 # Specify number of commits
-sinner comment --pr --count 10
+sinner pr --count 10
 
-# Single commit message for squash merging
-sinner comment --squash --count 5
+# PR from commits since a date
+sinner pr --since "2 weeks ago"
+```
 
-# Comments from commits since a date
-sinner comment --since "2 weeks ago"
+### Generate squash commit messages
+
+```bash
+# Single commit message for squash merge (last 5 commits)
+sinner squash
+
+# Squash message from more commits
+sinner squash --count 8
+
+# Squash from commits since date
+sinner squash --since "1 week ago"
+```
+
+### Review recent changes
+
+```bash
+# Informal summary of recent work (last 3 commits)
+sinner comment
+
+# Review more commits
+sinner comment --count 5
+
+# Review changes since date
+sinner comment --since "yesterday"
 ```
 
 ### Explain code or concepts
@@ -147,13 +172,15 @@ sinner --version
 
 ## Commands
 
-| Command                    | Description                                     | Examples                                  |
-| -------------------------- | ----------------------------------------------- | ----------------------------------------- |
-| `name <context>`           | Generate a professional name                    | `name "class for handling user sessions"` |
-| `commit <changes>`         | Create a conventional commit message            | `commit "refactored auth module"`         |
-| `comment [--pr\|--squash]` | Generate PR descriptions or squash commits      | `comment --squash --count 8`              |
-| `explain <content>`        | Explain code or concepts                        | `explain "async/await in JavaScript"`     |
-| `config`                   | Show current configuration                      | `config`                                  |
+| Command             | Description                             | Examples                                  |
+| ------------------- | --------------------------------------- | ----------------------------------------- |
+| `name <context>`    | Generate a professional name            | `name "class for handling user sessions"` |
+| `commit <changes>`  | Create a conventional commit message    | `commit "refactored auth module"`         |
+| `pr`                | Generate formal PR description          | `pr --count 10`                           |
+| `squash`            | Generate single commit for squash merge | `squash --count 8`                        |
+| `comment`           | Informal summary of recent changes      | `comment --count 5`                       |
+| `explain <content>` | Explain code or concepts                | `explain "async/await in JavaScript"`     |
+| `config`            | Show current configuration              | `config`                                  |
 
 ---
 
@@ -213,8 +240,9 @@ Each command has its own prompt function:
 
 - `prompt_name()` - Naming conventions
 - `prompt_commit()` - Commit message format (currently: `type(scope) -> description`)
-- `prompt_comment_squash()` - Single commit message for squash merges
+- `prompt_comment()` - Informal summaries of recent work
 - `prompt_comment_pr()` - PR descriptions with title and bullets
+- `prompt_comment_squash()` - Single commit message for squash merges
 - `prompt_explain()` - Code explanations
 
 **Example:** Change commit format from `type(scope) -> description` to `type: description`:
@@ -226,6 +254,20 @@ def prompt_commit(changes: str) -> str:
     Create a commit message in this EXACT format:
     type: description
     ..."""
+```
+
+After editing, reinstall: `pip install -e .`
+
+### Remove Terminal Signature
+
+Don't want the signature line? That's weird, but this is how you can remove it:
+
+```python
+# In src/sinner/__main__.py
+def echo_result(result: str):
+    """Echo result with signature line."""
+    typer.echo(result)
+    # typer.echo(f"\n{SIGNATURE}")  # Comment this out
 ```
 
 After editing, reinstall: `pip install -e .`
@@ -272,7 +314,7 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 ### v0.1 (current)
 
-- ✅ Core commands: name, commit, comment, explain
+- ✅ Core commands: name, commit, pr, squash, comment, explain
 - ✅ Git integration (read commits)
 - ✅ Local LLM support
 - ✅ CLI with Typer

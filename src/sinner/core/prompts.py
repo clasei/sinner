@@ -44,6 +44,7 @@ Rules:
 - Infer the best scope from context (e.g., ui, api, auth, home, db, config, tests)
 - Use imperative mood ("make" not "made", "add" not "added", "fix" not "fixed")
 - Make description clear and professional
+- Description starts with lowercase letter
 - Keep total length under 72 characters
 - Common types: feat, fix, refactor, docs, style, test, chore, perf
 
@@ -71,6 +72,7 @@ Rules:
 - ONE line only
 - Format: type(scope) -> description
 - Imperative mood (add, fix, update)
+- Description starts with lowercase letter
 - Under 72 characters
 - Capture the main change across all commits
 
@@ -91,6 +93,28 @@ Commits:
 {commits_text}
 
 Technical, simple, precise. No filler. To the point."""
+
+
+def prompt_comment(commits: list[str]) -> str:
+    """Prompt for informal, detailed summaries of recent work"""
+    commits_text = "\n\n".join(f"- {c}" for c in commits)
+    return f"""Summarize these recent changes in a casual, detailed way. Talk to the developer like a friendly colleague catching them up on what's been happening.
+
+Recent commits:
+{commits_text}
+
+Style:
+- Start with a casual greeting like "Hey!" or "So," 
+- Use passive voice (things "were added", "got updated", not "we added")
+- Conversational and natural tone
+- Technical but not formal
+- Include details about what changed and why
+- 2-3 sentences max
+- No bullet points, just flowing prose
+
+Example: "Hey! So the auth system got a nice refactoring - JWT handling was moved into a separate service and refresh token support was added. Error handling also got cleaned up to make expired sessions more graceful."
+
+Your summary:"""
 
 
 def prompt_explain(code_or_concept: str) -> str:
