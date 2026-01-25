@@ -42,7 +42,7 @@ type(scope) -> description
 Rules:
 - Silently fix any typos or grammar errors
 - Infer the best scope from context (e.g., ui, api, auth, home, db, config, tests)
-- Use PRESENT tense ("make" not "made", "add" not "added", "fix" not "fixed")
+- Use imperative mood ("make" not "made", "add" not "added", "fix" not "fixed")
 - Make description clear and professional
 - Keep total length under 72 characters
 - Common types: feat, fix, refactor, docs, style, test, chore, perf
