@@ -23,7 +23,7 @@ BANNER = r"""
 local-first CLI agent · private by design
 """
 
-SIGNATURE = "════ sinner · zero fluff, pure function ════"
+SIGNATURE = "══ zero fluff, pure function ══"
 
 
 def echo_result(result: str):

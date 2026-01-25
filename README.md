@@ -189,24 +189,24 @@ Updated project configuration
 - Commands: Restructured Git commands, added terminal signature
 - Comment: Added PR/squash distinction via post-processor
 
-════ sinner · zero fluff, pure function ════
+══ zero fluff, pure function ══
 (venv) clasei@volt sinner %  sinner squash --count 3
 fix(formatter) & feat(commands, comment) -> normalize formatting, restructure git commands, and add PR/squash distinction
 
-════ sinner · zero fluff, pure function ════
+══ zero fluff, pure function ══
 (venv) clasei@volt sinner %  sinner comment --count 3
 Hey! So, there's been some tweaking with the formatter to make things look a bit more consistent. The bullet points are now standardized, and that extra bolding in the markdown was removed to keep things cleaner.
 Over in the commands area, a bit of restructuring was done with the Git commands themselves – they were reorganized and now have a terminal signature for easier use. And with comments, a distinction was added between PR and squash comments using a post-processor to better organize the discussion.
 
-════ sinner · zero fluff, pure function ════
+══ zero fluff, pure function ══
 (venv) clasei@volt sinner %  sinner commit "added bullet normalization and markdown cleanup"
 feat(markdown) -> normalize bullet points and cleanup markdown formatting
 
-════ sinner · zero fluff, pure function ════
+══ zero fluff, pure function ══
 (venv) clasei@volt sinner %  sinner name "function that normalizes bullet points"
 normalizeBulletPoints
 
-════ sinner · zero fluff, pure function ════
+══ zero fluff, pure function ══
 ```
 
 ---
@@ -372,5 +372,5 @@ MIT License - see [LICENSE](LICENSE) file for details.
 **sinner v0.2.1** - built to ship 🎾
 
 ```
-════ sinner · zero fluff, pure function ════
+══ zero fluff, pure function ══
 ```
