@@ -46,7 +46,6 @@ Rules:
 - Make description clear and professional
 - Keep total length under 72 characters
 - Common types: feat, fix, refactor, docs, style, test, chore, perf
-- Use LEGO analogies when they help explain complex changes
 
 Examples:
 - "made table resonsive on home screen" → feat(home) -> make table responsive on home screen
