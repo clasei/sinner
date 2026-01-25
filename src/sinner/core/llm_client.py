@@ -22,7 +22,7 @@ class LLMClient:
     def __init__(self):
         self.base_url = os.getenv("LMSTUDIO_BASE_URL", "http://127.0.0.1:1234/v1").rstrip("/")
         self.api_key = os.getenv("LMSTUDIO_API_KEY", "lm-studio")
-        self.model = os.getenv("MODEL_ID", "google/gemma-3-4b")
+        self.model = os.getenv("MODEL_ID", "google/gemma-3n-e4b")
         self.headers = {"Authorization": f"Bearer {self.api_key}"}
 
     def ask(self, prompt: str, temperature: float = 0.7) -> str:

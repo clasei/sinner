@@ -63,19 +63,19 @@ class Controller:
         return self.formatter.clean_output(result)
 
     def _handle_comment(self, commits_or_data: str, **flags) -> str:
-        """Generate a comment for squash or merge."""
+        """Generate a comment for squash or PR."""
         commits = commits_or_data.split("\n") if commits_or_data else []
         
         if flags.get("squash"):
+            # Generate single commit message for squash merge
             prompt = prompts.prompt_comment_squash(commits)
-        elif flags.get("merge"):
-            prompt = prompts.prompt_comment_merge(commits)
+            result = self.llm.ask(prompt, temperature=0.5)
+            return self.formatter.clean_output(result)
         else:
-            # Default to merge style
-            prompt = prompts.prompt_comment_merge(commits)
-        
-        result = self.llm.ask(prompt, temperature=0.6)
-        return self.formatter.clean_output(result)
+            # Default: PR description (title + bullets)
+            prompt = prompts.prompt_comment_pr(commits)
+            result = self.llm.ask(prompt, temperature=0.6)
+            return self.formatter.format_pr_comment(result)
 
     def _handle_explain(self, content: str) -> str:
         """Explain code or concepts."""

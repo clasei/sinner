@@ -126,7 +126,7 @@ def config():
     
     typer.echo("Current Configuration:")
     typer.echo(f"  Base URL: {os.getenv('LMSTUDIO_BASE_URL', 'http://127.0.0.1:1234/v1')}")
-    typer.echo(f"  Model: {os.getenv('MODEL_ID', 'google/gemma-3-4b')}")
+    typer.echo(f"  Model: {os.getenv('MODEL_ID', 'google/gemma-3n-e4b')}")
     typer.echo(f"  API Key: {'set' if os.getenv('LMSTUDIO_API_KEY') else 'not set (using default)'}")
 
 

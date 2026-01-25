@@ -35,7 +35,7 @@
 
 3. **Start LM Studio**
    - Open [LM Studio](https://lmstudio.ai/)
-   - Load a model (recommended: `llama-3.2-3b-instruct`)
+   - Load a model (recommended: `google/gemma-3n-e4b`)
    - Start the local server (default port 1234)
 
 **That's it!** Now use sinner from any directory.

@@ -5,7 +5,7 @@ import sys
 
 if len(sys.argv) < 2:
     print("Usage: python update_model.py <model_id>")
-    print("\nExample: python update_model.py qwen2.5-coder-1.5b-instruct-q4_k_m")
+    print("\nExample: python update_model.py google/gemma-3n-e4b")
     sys.exit(1)
 
 new_model = sys.argv[1]

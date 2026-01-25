@@ -72,7 +72,7 @@ sinner takes your messy thoughts and turns them into clean, professional output:
 
 4. **Start your local LLM**
    - Open [LM Studio](https://lmstudio.ai/)
-   - Load a model (recommended: `llama-3.2-3b-instruct`)
+   - Load a model (recommended: `google/gemma-3n-e4b`)
    - Start the local server (default: `http://127.0.0.1:1234`)
 
 5. **You're ready!**
@@ -81,8 +81,15 @@ sinner takes your messy thoughts and turns them into clean, professional output:
    sinner --help
    ```
 
-   **Using a different model?**
-   Edit `~/.config/sinner/.env` and update `MODEL_ID` to match the model name shown in LM Studio.
+   **Switching models?**
+   1. Load new model in LM Studio's Chat tab
+   2. Restart the local server
+   3. Update your config:
+      ```bash
+      nano ~/.config/sinner/.env
+      ```
+   4. Change `MODEL_ID` to match the model name shown in LM Studio
+   5. Test: `sinner --version`
 
 ---
 
@@ -105,14 +112,14 @@ sinner commit "added user authentication with JWT tokens"
 ### Generate merge/squash comments
 
 ```bash
-# Squash merge comment from last 5 commits (default)
-sinner comment --squash
+# PR description with title and bullets (default)
+sinner comment
 
-# Or specify the count explicitly
+# Specify number of commits
+sinner comment --pr --count 10
+
+# Single commit message for squash merging
 sinner comment --squash --count 5
-
-# Pull request description from last 10 commits
-sinner comment --merge --count 10
 
 # Comments from commits since a date
 sinner comment --since "2 weeks ago"
@@ -140,13 +147,13 @@ sinner --version
 
 ## Commands
 
-| Command                       | Description                                     | Examples                                  |
-| ----------------------------- | ----------------------------------------------- | ----------------------------------------- |
-| `name <context>`              | Generate a professional name                    | `name "class for handling user sessions"` |
-| `commit <changes>`            | Create a conventional commit message            | `commit "refactored auth module"`         |
-| `comment [--squash\|--merge]` | Generate merge/squash comments from git history | `comment --squash --count 8`              |
-| `explain <content>`           | Explain code or concepts                        | `explain "async/await in JavaScript"`     |
-| `config`                      | Show current configuration                      | `config`                                  |
+| Command                    | Description                                     | Examples                                  |
+| -------------------------- | ----------------------------------------------- | ----------------------------------------- |
+| `name <context>`           | Generate a professional name                    | `name "class for handling user sessions"` |
+| `commit <changes>`         | Create a conventional commit message            | `commit "refactored auth module"`         |
+| `comment [--pr\|--squash]` | Generate PR descriptions or squash commits      | `comment --squash --count 8`              |
+| `explain <content>`        | Explain code or concepts                        | `explain "async/await in JavaScript"`     |
+| `config`                   | Show current configuration                      | `config`                                  |
 
 ---
 
@@ -206,8 +213,8 @@ Each command has its own prompt function:
 
 - `prompt_name()` - Naming conventions
 - `prompt_commit()` - Commit message format (currently: `type(scope) -> description`)
-- `prompt_comment_squash()` - Squash merge comments
-- `prompt_comment_merge()` - Pull request descriptions
+- `prompt_comment_squash()` - Single commit message for squash merges
+- `prompt_comment_pr()` - PR descriptions with title and bullets
 - `prompt_explain()` - Code explanations
 
 **Example:** Change commit format from `type(scope) -> description` to `type: description`:

@@ -58,54 +58,53 @@ Respond with ONLY the commit message. No explanations, no alternatives."""
 
 
 def prompt_comment_squash(commits: list[str]) -> str:
-    """Prompt for squash merge comments"""
+    """Prompt for generating a single squash merge commit message"""
     commits_text = "\n\n".join(f"- {c}" for c in commits)
-    return f"""You are creating a squash merge summary for a pull request.
+    return f"""Create ONE commit message that summarizes all these commits together.
 
-Commits being squashed:
+Commits to squash:
 {commits_text}
 
-Write a clear, professional summary of what these commits accomplish together.
-- Focus on the overall outcome, not individual commits
-- Use past tense
-- 2-4 short paragraphs maximum
-- No emojis, no markdown headers
-- Professional tone
+Output format: type(scope) -> description
 
-Respond with ONLY the summary text."""
+Rules:
+- ONE line only
+- Format: type(scope) -> description
+- Imperative mood (add, fix, update)
+- Under 72 characters
+- Capture the main change across all commits
+
+Examples:
+- feat(auth) -> add JWT authentication system
+- docs(install) -> update setup instructions for venv and pipx
+- refactor(core) -> improve prompt handling and formatting
+
+Your single commit message:"""
 
 
-def prompt_comment_merge(commits: list[str]) -> str:
-    """Prompt for merge request / pull request comments"""
+def prompt_comment_pr(commits: list[str]) -> str:
+    """Prompt for PR descriptions (title + bullets)"""
     commits_text = "\n\n".join(f"- {c}" for c in commits)
-    return f"""You are writing a merge/pull request description.
+    return f"""Summarize what changed.
 
-Recent commits:
+Commits:
 {commits_text}
 
-Write a clear, professional description for this merge request.
-- Explain what changed and why
-- Highlight key improvements or fixes
-- 2-4 short paragraphs maximum
-- No emojis, no markdown headers
-- Professional tone
-
-Respond with ONLY the description text."""
+Technical, simple, precise. No filler. To the point."""
 
 
 def prompt_explain(code_or_concept: str) -> str:
     """Prompt for explaining code or concepts"""
-    return f"""You are a friendly technical mentor explaining a concept clearly.
+    return f"""Explain this concept clearly and concisely.
 
 {code_or_concept}
 
-Provide a clear explanation:
-- Start with the core idea in simple terms
-- Be precise but accessible
-- Use 2-3 short paragraphs
-- Use LEGO analogies when they help clarify complex concepts
-- Avoid unnecessary jargon
-- Occasionally include a subtle, tasteful bit of dev humor or a light dad joke if it fits naturally
-- Keep it professional but warm
+Guidelines:
+- Start with core idea in one sentence
+- Use 2-3 short paragraphs maximum
+- Add a LEGO analogy if it helps
+- Be technical but accessible
+- Optional: subtle dev humor if natural
+- No fluff, stay focused
 
-Respond with ONLY the explanation."""
+Respond with explanation only."""

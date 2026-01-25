@@ -66,15 +66,16 @@ def commit(
 def comment(
     count: int = typer.Option(5, "--count", "-c", help="Number of recent commits to analyze"),
     since: Optional[str] = typer.Option(None, "--since", help="Get commits since this date"),
-    squash: bool = typer.Option(False, "--squash", help="Generate squash merge comment"),
-    merge: bool = typer.Option(False, "--merge", help="Generate merge/pull request comment"),
+    squash: bool = typer.Option(False, "--squash", help="Generate single commit message for squash merge"),
+    pr: bool = typer.Option(False, "--pr", help="Generate PR description (title + bullets)"),
 ):
     """
-    Generate a comment for squash or merge requests based on recent commits.
+    Generate commit messages or PR descriptions from git history.
     
     Examples:
-        sinner comment --squash
-        sinner comment --merge --count 10
+        sinner comment --pr           # PR description (default)
+        sinner comment --squash        # Single commit message
+        sinner comment --pr --count 10
         sinner comment --since "2 weeks ago"
     """
     try:
@@ -90,7 +91,7 @@ def comment(
         
         commits_text = "\n".join(commits)
         controller = Controller()
-        result = controller.run("comment", commits_text, squash=squash, merge=merge)
+        result = controller.run("comment", commits_text, squash=squash, pr=pr)
         typer.echo(result)
         
     except RuntimeError as e:
@@ -152,7 +153,7 @@ def config(
         default_config = """# sinner configuration
 LMSTUDIO_BASE_URL=http://127.0.0.1:1234/v1
 LMSTUDIO_API_KEY=lm-studio
-MODEL_ID=llama-3.2-3b-instruct
+MODEL_ID=google/gemma-3n-e4b
 """
         env_file.write_text(default_config)
         typer.echo(f"✓ Created config at {env_file}")
@@ -170,7 +171,7 @@ MODEL_ID=llama-3.2-3b-instruct
     
     typer.echo("\nCurrent Settings:")
     typer.echo(f"  Base URL: {os.getenv('LMSTUDIO_BASE_URL', 'http://127.0.0.1:1234/v1')}")
-    typer.echo(f"  Model: {os.getenv('MODEL_ID', 'llama-3.2-3b-instruct')}")
+    typer.echo(f"  Model: {os.getenv('MODEL_ID', 'google/gemma-3n-e4b')}")
     typer.echo(f"  API Key: {'set' if os.getenv('LMSTUDIO_API_KEY') else 'not set (using default)'}")
 
 

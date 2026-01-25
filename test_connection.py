@@ -9,7 +9,7 @@ load_dotenv()
 
 BASE_URL = os.getenv("LMSTUDIO_BASE_URL", "http://127.0.0.1:1234/v1")
 API_KEY = os.getenv("LMSTUDIO_API_KEY", "lm-studio")
-MODEL_ID = os.getenv("MODEL_ID", "google/gemma-3-4b")
+MODEL_ID = os.getenv("MODEL_ID", "google/gemma-3n-e4b")
 
 print("=" * 60)
 print("LM Studio Connection Diagnostic")
