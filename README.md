@@ -8,11 +8,13 @@
 local-first CLI agent · private by design
 ```
 
-**get sinner →** [clasei.github.io/get-sinner](https://clasei.github.io/get-sinner)
-
 # sinner
 
 **turn messy intent into clean, professional output**
+
+**get sinner →** [clasei.github.io/get-sinner](https://clasei.github.io/get-sinner)
+
+---
 
 ## What is sinner?
 
@@ -369,8 +371,12 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 ---
 
-**sinner v0.2.1** - built to ship 🎾
-
 ```
+     _
+ ___(_)_ __  _ __   ___ _ __
+/ __| | '_ \| '_ \ / _ \ '__|
+\__ \ | | | | | | |  __/ |
+|___/_|_| |_|_| |_|\___|_|
+
 ══ zero fluff, pure function ══
 ```
