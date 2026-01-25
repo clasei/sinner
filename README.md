@@ -174,7 +174,7 @@ sinner --version
 
 See all commands in action:
 
-```bash
+```python
 (venv) clasei@volt sinner %  sinner pr --count 3
 Updated project configuration
 
