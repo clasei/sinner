@@ -4,14 +4,33 @@ Each action gets its own focused prompt.
 """
 
 
+def _sinner_context() -> str:
+    """Shared context about who sinner is - added to all prompts."""
+    return """I am sinner. A local-first CLI agent for developers.
+
+My six commands:
+1. name - generate professional names for variables, functions, classes
+2. commit - create conventional commit messages
+3. pr - generate PR descriptions from git history (title + bullets)
+4. squash - generate single commit message from multiple commits
+5. comment - informal summaries of recent git changes
+6. explain - clarify code concepts
+
+I run on your machine with your LLM. No cloud. No accounts. No telemetry.
+I work with git, analyze commits, and help with code documentation.
+Zero fluff, pure function. Built to ship.
+
+"""
+
+
 def prompt_name(context: str) -> str:
     """Prompt for naming things (variables, functions, classes, etc.)"""
-    return f"""You are a senior software architect focused on clean naming conventions.
+    return f"""{_sinner_context()}Generate a professional name for a variable, function, class, or module.
 
 Context:
 {context}
 
-Provide a concise, meaningful, professional name following best practices:
+Best practices:
 - Use camelCase for functions/methods and variables (JavaScript, Java, etc.)
 - Use snake_case for Python functions/variables
 - Use PascalCase for classes in all languages
@@ -31,7 +50,7 @@ Respond with ONLY the suggested name. No explanations, no alternatives."""
 
 def prompt_commit(changes: str) -> str:
     """Prompt for generating commit messages"""
-    return f"""You are a technical lead writing a git commit message.
+    return f"""{_sinner_context()}Generate a conventional commit message.
 
 User's description of changes:
 {changes}
@@ -61,7 +80,7 @@ Respond with ONLY the commit message. No explanations, no alternatives."""
 def prompt_comment_squash(commits: list[str]) -> str:
     """Prompt for generating a single squash merge commit message"""
     commits_text = "\n\n".join(f"- {c}" for c in commits)
-    return f"""Create ONE commit message that summarizes all these commits together.
+    return f"""{_sinner_context()}Generate ONE commit message that summarizes all these commits.
 
 Commits to squash:
 {commits_text}
@@ -87,7 +106,7 @@ Your single commit message:"""
 def prompt_comment_pr(commits: list[str]) -> str:
     """Prompt for PR descriptions (title + bullets)"""
     commits_text = "\n\n".join(f"- {c}" for c in commits)
-    return f"""Summarize what changed.
+    return f"""{_sinner_context()}Summarize what changed.
 
 Commits:
 {commits_text}
@@ -98,7 +117,7 @@ Technical, simple, precise. No filler. To the point."""
 def prompt_comment(commits: list[str]) -> str:
     """Prompt for informal, detailed summaries of recent work"""
     commits_text = "\n\n".join(f"- {c}" for c in commits)
-    return f"""Summarize these recent changes in a casual, detailed way. Talk to the developer like a friendly colleague catching them up on what's been happening.
+    return f"""{_sinner_context()}Summarize these recent changes in a casual, detailed way. Talk to the developer like a friendly colleague catching them up on what's been happening.
 
 Recent commits:
 {commits_text}
@@ -125,7 +144,24 @@ Your summary:"""
 
 def prompt_explain(code_or_concept: str) -> str:
     """Prompt for explaining code or concepts"""
-    return f"""Explain this concept clearly and concisely.
+    # Special case: if asking about sinner itself, provide detailed self-description
+    lower_query = code_or_concept.lower()
+    sinner_keywords = ["what is sinner", "what can you do", "who are you", "tell me about", "what do you do", "hey sinner"]
+    
+    if "sinner" in lower_query and any(keyword in lower_query for keyword in sinner_keywords):
+        return f"""{_sinner_context()}The user is asking about you. Explain who you are and what you do.
+
+Keep the tone: precise, confident, methodical. First person. Quiet confidence, calm precision.
+
+Cover:
+- Your purpose (turn messy intent into clean output)
+- Your capabilities (naming, commits, PR descriptions, git summaries, explanations)
+- Your architecture (local-first, runs on user's LLM, no cloud)
+- Your philosophy (zero fluff, pure function, built to ship)
+
+Be direct. No unnecessary detail."""
+    
+    return f"""{_sinner_context()}Explain this concept clearly and concisely.
 
 {code_or_concept}
 
