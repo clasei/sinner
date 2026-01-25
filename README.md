@@ -40,8 +40,10 @@ sinner takes your messy thoughts and turns them into clean, professional output:
    ```bash
    git clone https://github.com/clasei/sinner.git
    cd sinner
-   pip install -e .
+   pip3 install -e .
    ```
+   
+   *If `pip3` not found, try: `python3 -m pip install -e .`*
 
 2. **Initialize configuration**
 

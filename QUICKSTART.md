@@ -7,8 +7,10 @@
    ```bash
    git clone https://github.com/clasei/sinner.git
    cd sinner
-   pip install -e .
+   pip3 install -e .
    ```
+   
+   *If `pip3` not found: `python3 -m pip install -e .`*
 
 2. **Initialize config**
 
