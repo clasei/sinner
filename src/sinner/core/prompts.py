@@ -48,7 +48,7 @@ Rules:
 - Common types: feat, fix, refactor, docs, style, test, chore, perf
 
 Examples:
-- "made table resonsive on home screen" → feat(home) -> make table responsive on home screen
+- "made table resonsive on home screen" (typo intentional) → feat(home) -> make table responsive on home screen
 - "fixed bug in login" → fix(auth) -> resolve login validation error
 - "updated readme" → docs(readme) -> update installation instructions
 - "refactored api endpoints" → refactor(api) -> improve endpoint structure
