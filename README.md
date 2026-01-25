@@ -249,14 +249,14 @@ sinner/
 
 ## Design Principles
 
-### v0.1 Rules
+### Rules
 
 - ❌ no cloud
 - ❌ no database
 - ❌ no accounts
 - ❌ no scope creep
 - ✅ working > perfect
-- ✅ ship v0.1
+- ✅ build and ship
 
 ### Architecture
 
@@ -351,7 +351,7 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 ## Roadmap
 
-### v0.1 (current)
+### Now (current version)
 
 - ✅ Core commands: name, commit, pr, squash, comment, explain
 - ✅ Git integration (read commits)
@@ -367,7 +367,7 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 ---
 
-**sinner v0.2** - built to ship 🎾
+**sinner v0.2.1** - built to ship 🎾
 
 ```
 ════ sinner · zero fluff, pure function ════
