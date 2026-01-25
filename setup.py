@@ -10,7 +10,7 @@ with open("requirements.txt", "r", encoding="utf-8") as fh:
 
 setup(
     name="sinner",
-    version="0.1.0",
+    version="0.2.0",
     author="clasei",
     description="Local-first CLI agent that turns messy intent into clean output",
     long_description=long_description,
